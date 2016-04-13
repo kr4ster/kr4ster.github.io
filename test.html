@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PS2 Test</title>
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script src="jquery.countdown.min.js"></script>
+	<script src="app.js"></script>
+	<style>
+		.jq-countdown { display: none; }
+		.icon {
+		    position: relative;
+		    float: left;
+		    width: 24px;
+		    height: 24px;
+		    min-width: 24px;
+		    min-height: 24px;
+		    background: url(icon_alert_bg.png);
+		    background-repeat: no-repeat;
+		    background-size: 24px 24px;
+		}
+
+		.icon .bg {
+		    position: absolute;
+		    top: 0px;
+		    width: 24px;
+		    height: 24px;
+		    min-width: 24px;
+		    min-height: 24px;
+		    background: url(icon_alert_circle.png),url(icon_alert_bg_red.png);
+		    background-repeat: no-repeat;
+		    background-size: 24px 24px;
+		    animation-duration: 500ms;
+		    animation-timing-function: linear;
+		    animation-delay: 0s;
+		    animation-direction: normal;
+		    animation-fill-mode: none;
+		    animation-iteration-count: infinite;
+		    animation-play-state: running;
+		    animation-name: metagameicon;
+		    -webkit-animation-duration: 500ms;
+		    -webkit-animation-timing-function: linear;
+		    -webkit-animation-delay: 0s;
+		    -webkit-animation-direction: normal;
+		    -webkit-animation-fill-mode: none;
+		    -webkit-animation-iteration-count: infinite;
+		    -webkit-animation-play-state: running;
+		    -webkit-animation-name: metagameicon;
+		}
+
+		.icon .highlight {
+		    position: absolute;
+		    top: 0px;
+		    width: 24px;
+		    height: 24px;
+		    min-width: 24px;
+		    min-height: 24px;
+		    background: url(icon_alert_highlight.png);
+		    background-repeat: no-repeat;
+		    background-size: 24px 24px;
+		    animation: metagameicon_highlight 1s infinite linear;
+		    -moz-animation: metagameicon_highlight 1s infinite linear;
+		    -webkit-animation: metagameicon_highlight 1s infinite linear;
+		}
+
+		@keyframes metagameicon {
+		    0% {
+		        background-position: 8px 0px, -8px 0px;
+		        opacity: 0.4;
+		    }
+		    5% {
+		        opacity: 0.8;
+		    }
+		    50% {
+		        background-position: 0px 0px;
+		        opacity: 1;
+		    }
+		    95% {
+		        opacity: 0.8;
+		    }
+		    100% {
+		        background-position: -8px 0px, 8px 0px;
+		        opacity: 0.4;
+		    }
+		}
+		@-webkit-keyframes metagameicon {
+		    0% {
+		        background-position: 8px 0px, -8px 0px;
+		        opacity: 0.4;
+		    }
+		    5% {
+		        opacity: 0.8;
+		    }
+		    50% {
+		        background-position: 0px 0px;
+		        opacity: 1;
+		    }
+		    95% {
+		        opacity: 0.8;
+		    }
+		    100% {
+		        background-position: -8px 0px, 8px 0px;
+		        opacity: 0.4;
+		    }
+		}
+		@keyframes metagameicon_highlight {
+		    0% {
+		        background-position: 8px 0px;
+		        opacity: 0;
+		    }
+		    35% {
+		        opacity: 0.2;
+		    }
+		    50% {
+		        background-position: 0px 0px;
+		        opacity: 1;
+		    }
+		    65% {
+		        opacity: 0.2;
+		    }
+		    100% {
+		        background-position: -8px 0px;
+		        opacity: 0;
+		    }
+		}
+		@-webkit-keyframes metagameicon_highlight {
+		    0% {
+		        background-position: 8px 0px;
+		        opacity: 0;
+		    }
+		    35% {
+		        opacity: 0.2;
+		    }
+		    50% {
+		        background-position: 0px 0px;
+		        opacity: 1;
+		    }
+		    65% {
+		        opacity: 0.2;
+		    }
+		    100% {
+		        background-position: -8px 0px;
+		        opacity: 0;
+		    }
+		}
+	</style>
+</head>
+<body>
+	<div class="jq-countdown">
+		<div class="icon"><div class="bg"></div><div class="highlight"></div></div><span class="jq-timer"></span><span id="jq-description"></span>
+	</div>
+</body>
+</html>
