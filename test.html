@@ -1,153 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-	<title>PS2 Test</title>
-	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-	<script src="jquery.countdown.min.js"></script>
-	<script src="app.js"></script>
-	<style>
-		.jq-description { margin-left: 5px; }
-		.jq-countdown { display: none; }
-		.icon {
-		    position: relative;
-		    float: left;
-		    width: 24px;
-		    height: 24px;
-		    min-width: 24px;
-		    min-height: 24px;
-		    background: url(icon_alert_bg.png);
-		    background-repeat: no-repeat;
-		    background-size: 24px 24px;
-		}
+	<head>
+		<style>
+			.container { margin: auto; }
+			.flag-form { display: none; }
+			.continue-dashing { display: none; }
+		</style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script src="https://services.cognitoforms.com/scripts/embed.js"></script>
+		<script>
+			$(function() {
+				window.lastField = null;
 
-		.icon .bg {
-		    position: absolute;
-		    top: 0px;
-		    width: 24px;
-		    height: 24px;
-		    min-width: 24px;
-		    min-height: 24px;
-		    background: url(icon_alert_circle.png),url(icon_alert_bg_red.png);
-		    background-repeat: no-repeat;
-		    background-size: 24px 24px;
-		    animation-duration: 500ms;
-		    animation-timing-function: linear;
-		    animation-delay: 0s;
-		    animation-direction: normal;
-		    animation-fill-mode: none;
-		    animation-iteration-count: infinite;
-		    animation-play-state: running;
-		    animation-name: metagameicon;
-		    -webkit-animation-duration: 500ms;
-		    -webkit-animation-timing-function: linear;
-		    -webkit-animation-delay: 0s;
-		    -webkit-animation-direction: normal;
-		    -webkit-animation-fill-mode: none;
-		    -webkit-animation-iteration-count: infinite;
-		    -webkit-animation-play-state: running;
-		    -webkit-animation-name: metagameicon;
-		}
+				$(document)
+					.on('focus', '.cognito input', function(e) {
+						window.lastField = $parentContextData(this).get_propertyPath();
+					}) 
+					.on('click', '.flag-button', function(e) {
+						e.preventDefault();
 
-		.icon .highlight {
-		    position: absolute;
-		    top: 0px;
-		    width: 24px;
-		    height: 24px;
-		    min-width: 24px;
-		    min-height: 24px;
-		    background: url(icon_alert_highlight.png);
-		    background-repeat: no-repeat;
-		    background-size: 24px 24px;
-		    animation: metagameicon_highlight 1s infinite linear;
-		    -moz-animation: metagameicon_highlight 1s infinite linear;
-		    -webkit-animation: metagameicon_highlight 1s infinite linear;
-		}
+						$('.continue-dashing').show();
+						$('.flag-button').hide();
 
-		@keyframes metagameicon {
-		    0% {
-		        background-position: 8px 0px, -8px 0px;
-		        opacity: 0.4;
-		    }
-		    5% {
-		        opacity: 0.8;
-		    }
-		    50% {
-		        background-position: 0px 0px;
-		        opacity: 1;
-		    }
-		    95% {
-		        opacity: 0.8;
-		    }
-		    100% {
-		        background-position: -8px 0px, 8px 0px;
-		        opacity: 0.4;
-		    }
-		}
-		@-webkit-keyframes metagameicon {
-		    0% {
-		        background-position: 8px 0px, -8px 0px;
-		        opacity: 0.4;
-		    }
-		    5% {
-		        opacity: 0.8;
-		    }
-		    50% {
-		        background-position: 0px 0px;
-		        opacity: 1;
-		    }
-		    95% {
-		        opacity: 0.8;
-		    }
-		    100% {
-		        background-position: -8px 0px, 8px 0px;
-		        opacity: 0.4;
-		    }
-		}
-		@keyframes metagameicon_highlight {
-		    0% {
-		        background-position: 8px 0px;
-		        opacity: 0;
-		    }
-		    35% {
-		        opacity: 0.2;
-		    }
-		    50% {
-		        background-position: 0px 0px;
-		        opacity: 1;
-		    }
-		    65% {
-		        opacity: 0.2;
-		    }
-		    100% {
-		        background-position: -8px 0px;
-		        opacity: 0;
-		    }
-		}
-		@-webkit-keyframes metagameicon_highlight {
-		    0% {
-		        background-position: 8px 0px;
-		        opacity: 0;
-		    }
-		    35% {
-		        opacity: 0.2;
-		    }
-		    50% {
-		        background-position: 0px 0px;
-		        opacity: 1;
-		    }
-		    65% {
-		        opacity: 0.2;
-		    }
-		    100% {
-		        background-position: -8px 0px;
-		        opacity: 0;
-		    }
-		}
-	</style>
-</head>
-<body>
-	<div class="jq-countdown">
-		<div class="icon"><div class="bg"></div><div class="highlight"></div></div><span class="jq-timer"></span><span class="jq-description"></span>
-	</div>
-</body>
+						$('.flag-form').empty();
+						if (navigator.geolocation) {
+							navigator.geolocation.getCurrentPosition(function(position) {
+								var html = '<iframe id="flag-form-frame" src="https://services.cognitoforms.com/f/JViYec0P-EaS2hfIcKMHZA?id=10" style="position:relative;width:1px;min-width:100%;*width:100%;" frameborder="0" scrolling="yes" seamless="seamless" height="496" width="100%" />';
+								html += '<script>$("#flag-form-frame").load(function() { this.contentWindow.postMessage(JSON.stringify({event:"prefill",data:{entry:{"Position":"' + position.coords.latitude + ',' + position.coords.longitude + '", "Page":' + Cognito.Forms.model.entry.get_currentPage().get_number() + ', "Field":"' + lastField + '"}}}), "*"); });</' + 'script>';
+
+								$('.flag-form').append(html);
+
+								$('.dash-form').slideUp();
+								$('.flag-form').slideDown();
+							});
+						} else {
+								$('.flag-form').append('<iframe src="https://services.cognitoforms.com/f/JViYec0P-EaS2hfIcKMHZA?id=10" style="position:relative;width:1px;min-width:100%;*width:100%;" frameborder="0" scrolling="yes" seamless="seamless" height="496" width="100%" /><script src="https://services.cognitoforms.com/scripts/embed.js"></' + 'script>');
+
+								$('.dash-form').slideUp();
+								$('.flag-form').slideDown();
+						}
+
+					})
+					.on('click', '.continue-dashing', function(e) {
+						e.preventDefault();
+
+						$('.continue-dashing').hide();
+						$('.flag-button').show();
+
+						$('.dash-form').slideDown();
+						$('.flag-form').slideUp();
+					});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="container">
+			<a class="flag-button" href="#">Flag It!</a>
+			<a class="continue-dashing" href="#">Continue Dashing!</a>
+			<!-- Form 1: Dash -->
+			<div class="dash-form">
+				<div class="cognito">
+					<script src="https://services.cognitoforms.com/s/JViYec0P-EaS2hfIcKMHZA"></script>
+					<script>Cognito.load("forms", { id: "11" });</script>
+				</div>
+			</div>
+
+			<div class="flag-form">
+				<!-- Form 2: Flag -->
+			</div>
+		</div>
+	</body>
 </html>
