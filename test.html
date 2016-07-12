@@ -4,51 +4,18 @@
 		<style>
 			.container { margin: auto; }
 			.flag-form { display: none; }
-			.continue-dashing { display: none; }
 		</style>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-		<script src="https://services.cognitoforms.com/scripts/embed.js"></script>
 		<script>
 			$(function() {
-				window.lastField = null;
-
 				$(document)
-					.on('focus', '.cognito input', function(e) {
-						window.lastField = $parentContextData(this).get_propertyPath();
-					}) 
 					.on('click', '.flag-button', function(e) {
-						e.preventDefault();
+						var page = Cognito.Forms.model.entry.get_currentPage().get_number();
+						var $el = $(this);
+						var href = $el.attr('href').indexOf('?') == -1 ? $el.attr('href') : $el.attr('href').substring(0, $el.attr('href').indexOf('?'));
+						href += '?entry={"Page":' + page + '}';
 
-						$('.continue-dashing').show();
-						$('.flag-button').hide();
-
-						$('.flag-form').empty();
-						if (navigator.geolocation) {
-							navigator.geolocation.getCurrentPosition(function(position) {
-								var html = '<iframe id="flag-form-frame" src="https://services.cognitoforms.com/f/JViYec0P-EaS2hfIcKMHZA?id=10" style="position:relative;width:1px;min-width:100%;*width:100%;" frameborder="0" scrolling="yes" seamless="seamless" height="496" width="100%" />';
-								html += '<script>$("#flag-form-frame").load(function() { this.contentWindow.postMessage(JSON.stringify({event:"prefill",data:{entry:{"Position":"' + position.coords.latitude + ',' + position.coords.longitude + '", "Page":' + Cognito.Forms.model.entry.get_currentPage().get_number() + ', "Field":"' + lastField + '"}}}), "*"); });</' + 'script>';
-
-								$('.flag-form').append(html);
-
-								$('.dash-form').slideUp();
-								$('.flag-form').slideDown();
-							});
-						} else {
-								$('.flag-form').append('<iframe src="https://services.cognitoforms.com/f/JViYec0P-EaS2hfIcKMHZA?id=10" style="position:relative;width:1px;min-width:100%;*width:100%;" frameborder="0" scrolling="yes" seamless="seamless" height="496" width="100%" /><script src="https://services.cognitoforms.com/scripts/embed.js"></' + 'script>');
-
-								$('.dash-form').slideUp();
-								$('.flag-form').slideDown();
-						}
-
-					})
-					.on('click', '.continue-dashing', function(e) {
-						e.preventDefault();
-
-						$('.continue-dashing').hide();
-						$('.flag-button').show();
-
-						$('.dash-form').slideDown();
-						$('.flag-form').slideUp();
+						$el.attr('href', href);
 					});
 			});
 		</script>
@@ -56,18 +23,13 @@
 
 	<body>
 		<div class="container">
-			<a class="flag-button" href="#">Flag It!</a>
-			<a class="continue-dashing" href="#">Continue Dashing!</a>
+			<a class="flag-button" href="https://www.cognitoforms.com/FirstOrganization1/CrazyDashFeedback" target="_blank">Feedback</a>
 			<!-- Form 1: Dash -->
 			<div class="dash-form">
 				<div class="cognito">
 					<script src="https://services.cognitoforms.com/s/JViYec0P-EaS2hfIcKMHZA"></script>
 					<script>Cognito.load("forms", { id: "11" });</script>
 				</div>
-			</div>
-
-			<div class="flag-form">
-				<!-- Form 2: Flag -->
 			</div>
 		</div>
 	</body>
