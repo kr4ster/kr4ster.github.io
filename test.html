@@ -4,7 +4,7 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script>
 			$(document).on('ready', function() {
-				$(window).on('beforeSubmit.cognito', function(p) {
+				$(document).on('beforeSubmit.cognito', function(p) {
 					console.log('Form submitted!');
 					console.log(JSON.stringify(p.entry));
 				});
