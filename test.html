@@ -1,17 +1,12 @@
 <!doctype html>
 <html>
 	<head>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script>
-			$(document).on('beforeSubmit.cognito', function(p, args) {
-				console.log('Form submitted!');
-				console.log(JSON.stringify(args.entry));
-			});
-		</script>
 	</head>
 
 	<body>
-		<iframe src="https://services.cognitoforms.com/f/JViYec0P-EaS2hfIcKMHZA?id=56" style="position:relative;width:1px;min-width:100%;*width:100%;" frameborder="0" scrolling="yes" seamless="seamless" height="510" width="100%"></iframe>
-		<script src="https://services.cognitoforms.com/scripts/embed.js"></script>
+		<div class="cognito">
+		<script src="https://services.cognito.test/s/BMsUbbRWs0mKfF9qtJ18mQ"></script>
+		<script>Cognito.load("forms", { id: "6" });</script>
+		</div>
 	</body>
 </html>
